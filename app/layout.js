@@ -2,6 +2,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import Header from "./_components/Header";
 import { ClerkProvider } from "@clerk/nextjs";
+import { Toaster } from "sonner";
 
 const inter = Poppins({ weight: "500", subsets: ["latin"] });
 
@@ -17,6 +18,7 @@ export default function RootLayout({ children }) {
         <body className={inter.className}>
           <div className="mx-6 md:mx-16">
             <Header />
+            <Toaster />
             {children}
           </div>
         </body>
