@@ -95,9 +95,29 @@ const getBuisnessByID = async (id) => {
   return result;
 }
 
+const createBooking = async (buisnessId, date, time, name, email) => {
+  console.log(`mutation: ${date}, ${time}, ${name}, ${email},${buisnessId}`)
+  const mutationQuery = gql`
+  mutation CreateBooking {
+    createBooking(
+      data: {bookingStatus: Booked, buisnessList: {connect: {id: "`+buisnessId+`"}}, date: "`+date+`", userEmail: "`+email+`", username: "`+name+`", time: "`+time+`"}
+    ) {
+      id
+    }
+    publishManyBookings(to: PUBLISHED) {
+      count
+    }
+  }   
+  `
+
+  const result = await request(master_url, mutationQuery);
+  return result;
+}
+
 export default {
   getCategories,
   getBuisnessLists,
   getBuisnessByCategory,
-  getBuisnessByID
+  getBuisnessByID,
+  createBooking
 }
