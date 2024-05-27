@@ -21,7 +21,7 @@ function BuisnessList({ buisnessList, title }) {
                     </Link>
                 )) :
                     [1].map((item, index) => (
-                        <div className='w-full h-[300px] bg-slate-200 animate-pulse rounded-lg'>
+                        <div key={index} className='w-full h-[300px] bg-slate-200 animate-pulse rounded-lg'>
 
                         </div>
                     ))
