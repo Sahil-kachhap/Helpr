@@ -128,11 +128,35 @@ const getBookedSlots = async (buisnessId, date) => {
   return result;
 }
 
+const getBookings = async (email) => {
+  const query = gql`
+  query Bookings {
+    bookings(where: {userEmail: "`+email+`"} orderBy: publishedAt_DESC
+    ) {
+      buisnessList {
+        name
+        images {
+          url
+        }
+        contactPerson
+        address
+      }
+      date
+      time
+    }
+  }  
+  `
+
+  const result = await request(master_url, query);
+  return result;
+}
+
 export default {
   getCategories,
   getBuisnessLists,
   getBuisnessByCategory,
   getBuisnessByID,
   createBooking,
-  getBookedSlots
+  getBookedSlots,
+  getBookings
 }
