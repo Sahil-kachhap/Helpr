@@ -11,7 +11,7 @@ function Header() {
   return (
     <div className='p-5 shadow-sm flex justify-between'>
       <div className='flex items-center gap-8'>
-        <h1>Logo</h1>
+        <h1>House<span className='text-primary font-medium'>Helpr</span></h1>
         <div className='md:flex items-center gap-6 hidden'>
           <Link href={'/'}><h2 className='hover:scale-105 hover:text-primary cursor-pointer'>Home</h2></Link>
           <h2 className='hover:scale-105 hover:text-primary cursor-pointer'>Services</h2>
