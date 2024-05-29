@@ -13,6 +13,7 @@ import { Calendar } from "@/components/ui/calendar"
 import { Button } from '@/components/ui/button';
 import globalApi from '@/app/_services/globalApi';
 import { toast } from 'sonner';
+import moment from 'moment';
 
 
 function BookingSection({children, buisness}) {
@@ -56,7 +57,7 @@ function BookingSection({children, buisness}) {
   }
 
   const saveBooking = () => {
-    globalApi.createBooking(buisness.id, date, selectedTime, name, email).then(response => {
+    globalApi.createBooking(buisness.id, moment(date).format("DD-MMM-yyyy"), selectedTime, name, email).then(response => {
         console.log(`Booking created: ${response}`);
         if(response){
             setDate();
@@ -69,7 +70,7 @@ function BookingSection({children, buisness}) {
   }
 
   const bookedSlots = () => {
-    globalApi.getBookedSlots(buisness.id, date).then(response => {
+    globalApi.getBookedSlots(buisness.id, moment(date).format("DD-MMM-yyyy")).then(response => {
         if(response){
             setbookedTimeSlots(response.bookings);
         }
