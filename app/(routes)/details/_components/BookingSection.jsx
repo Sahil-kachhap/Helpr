@@ -19,12 +19,17 @@ function BookingSection({children, buisness}) {
   const [date, setDate] = useState(new Date());
   const [timeSlot, setTimeSlot] = useState([]);
   const [selectedTime, setSelectedTime] = useState();
+  const [bookedTimeSlots, setbookedTimeSlots] = useState([]);
   const name = "Sahil Kachhap";
   const email = "sahil.kachhap111989@gmail.com";
 
   useEffect(() => {
     getTime();
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    date && bookedSlots();
+  }, [date]);
 
   const getTime = () => {
     const timeList = [];
@@ -63,6 +68,20 @@ function BookingSection({children, buisness}) {
     })
   }
 
+  const bookedSlots = () => {
+    globalApi.getBookedSlots(buisness.id, date).then(response => {
+        if(response){
+            setbookedTimeSlots(response.bookings);
+        }
+    }, (error) => {
+        toast(`Error occured: ${error}`);
+    })
+  }
+
+  const isSlotBooked = (time) => {
+    return bookedTimeSlots.find(item => item.time == time)
+  }
+
   return (
     <div>
         <Sheet>
@@ -84,7 +103,7 @@ function BookingSection({children, buisness}) {
         <h2 className='my-5 font-bold'>Select Time Slot</h2>
         <div className='grid grid-cols-3 gap-3'>
             {timeSlot.map((item, index) => (
-                <Button className={`border rounded-full p-2 px-3 hover:bg-primary hover:text-white ${selectedTime == item.time && 'bg-primary text-white'}`} key={index} variant="outline" onClick={() => setSelectedTime(item.time)}>{item.time}</Button>
+                <Button disabled={isSlotBooked(item.time)} className={`border rounded-full p-2 px-3 hover:bg-primary hover:text-white ${selectedTime == item.time && 'bg-primary text-white'}`} key={index} variant="outline" onClick={() => setSelectedTime(item.time)}>{item.time}</Button>
             ))}
         </div>
       </SheetDescription>
