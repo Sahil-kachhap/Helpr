@@ -1,7 +1,6 @@
 "use client"
 import { Button } from '@/components/ui/button';
 import React from 'react'
-import Page from '../sign-in/[[...sign-in]]/page';
 import Link from 'next/link';
 import { UserButton, useUser } from '@clerk/nextjs';
 
@@ -14,7 +13,8 @@ function Header() {
         <h1>House<span className='text-primary font-medium'>Helpr</span></h1>
         <div className='md:flex items-center gap-6 hidden'>
           <Link href={'/'}><h2 className='hover:scale-105 hover:text-primary cursor-pointer'>Home</h2></Link>
-          <h2 className='hover:scale-105 hover:text-primary cursor-pointer'>Services</h2>
+          <Link href={'/search/Cleaning'}><h2 className='hover:scale-105 hover:text-primary cursor-pointer'>Services</h2></Link> 
+          {user ? <Link href={'/bookings'}><h2 className='hover:scale-105 hover:text-primary cursor-pointer'>Bookings</h2></Link>: ''}
           <h2 className='hover:scale-105 hover:text-primary cursor-pointer'>About us</h2>
         </div>
       </div>
